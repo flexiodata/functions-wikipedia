@@ -2,8 +2,7 @@
 title: Wikipedia Function Pack
 description: Functions for accessing information from wikipedia
 image:
-  src:
-  alt:
+  src: http://logo.clearbit.com/en.wikipedia.org
+  alt: Wikipedia logo
 
-params:
-
+prompts: []
