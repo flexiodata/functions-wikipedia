@@ -4,5 +4,6 @@ description: Functions for accessing information from wikipedia
 image:
   src: https://logo.clearbit.com/en.wikipedia.org
   alt: Wikipedia logo
-
+functions:
+- path: wikipedia.py
 prompts: []
