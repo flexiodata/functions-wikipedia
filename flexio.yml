@@ -1,9 +1,9 @@
 
-title: Wikipedia Function Pack
-description: Functions for accessing information from wikipedia
+title: Wikipedia Integration
+description: Functions for accessing information from Wikipedia
 image:
   src: https://logo.clearbit.com/en.wikipedia.org
   alt: Wikipedia logo
 functions:
-- path: wikipedia.py
+  - path: wikipedia.py
 prompts: []
