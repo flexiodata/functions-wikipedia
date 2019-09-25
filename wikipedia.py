@@ -5,13 +5,13 @@
 # title: WikiPedia
 # description: Returns a quick summary for a wikipedia article
 # params:
-# - name: search
-#   type: string
-#   description: Search string to use for which to get the summary
-#   required: true
+#   - name: search
+#     type: string
+#     description: Search string to use for which to get the summary
+#     required: true
 # examples:
-# - '"Yellowstone National Park"'
-# - '"JS Bach"'
+#   - '"Yellowstone National Park"'
+#   - '"JS Bach"'
 # notes:
 # ---
 
