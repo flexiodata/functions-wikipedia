@@ -2,8 +2,8 @@
 # ---
 # name: wikipedia
 # deployed: true
-# title: WikiPedia
-# description: Returns a quick summary for a wikipedia article
+# title: Wikipedia
+# description: Returns a quick summary for a Wikipedia article
 # params:
 #   - name: search
 #     type: string
