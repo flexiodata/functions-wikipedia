@@ -2,12 +2,12 @@
 # ---
 # name: wikipedia-enrich-description
 # deployed: true
-# title: Wikipedia
-# description: Returns a quick summary for a Wikipedia article
+# title: Wikipedia Topic Description
+# description: Returns the first sentence of the Wikipedia entry for a given search term
 # params:
 #   - name: search
 #     type: string
-#     description: Search string to use for which to get the summary
+#     description: Text search of Wikipedia
 #     required: true
 # examples:
 #   - '"Yellowstone National Park"'
