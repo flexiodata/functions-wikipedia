@@ -1,6 +1,6 @@
 
 # ---
-# name: wikipedia
+# name: wikipedia-enrich-description
 # deployed: true
 # title: Wikipedia
 # description: Returns a quick summary for a Wikipedia article

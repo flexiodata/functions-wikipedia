@@ -4,5 +4,5 @@ image:
   src: https://logo.clearbit.com/en.wikipedia.org
   alt: Wikipedia logo
 functions:
-  - path: wikipedia.py
+  - path: wikipedia-enrich-description.py
 prompts: []
