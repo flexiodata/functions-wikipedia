@@ -25,7 +25,7 @@ from bs4 import BeautifulSoup
 def flexio_handler(flex):
 
     # TODO: support language
-    language = 'end'
+    language = 'en'
 
 
     # get the input
