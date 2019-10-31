@@ -5,5 +5,6 @@ image:
   alt: Wikipedia logo
 functions:
   - path: wikipedia-enrich-description.py
+  - path: wikipedia-enrich-org.py
   - path: wikipedia-enrich-people.py
 prompts: []
