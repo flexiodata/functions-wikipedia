@@ -17,11 +17,16 @@
 
 import json
 import requests
+import urllib
 from cerberus import Validator
 from collections import OrderedDict
 from bs4 import BeautifulSoup
 
 def flexio_handler(flex):
+
+    # TODO: support language
+    language = 'end'
+
 
     # get the input
     input = flex.input.read()
@@ -50,8 +55,10 @@ def flexio_handler(flex):
         # see here to experiment with the api: https://en.wikipedia.org/wiki/Special:ApiSandbox
 
         # STEP 1: perform a search and get the page id for the top item in the search
-        search = input['search']
-        url = 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&srprop=timestamp&srsearch=' + search
+        url_query_params = {'action': 'query', 'format': 'json', 'list': 'search', 'srprop': 'timestamp', 'srsearch': input['search']}
+        url_query_str = urllib.parse.urlencode(url_query_params)
+
+        url = 'https://en.wikipedia.org/w/api.php?' + url_query_str
         response = requests.get(url)
         search_info = response.json()
         search_items = search_info.get('query', {}).get('search', [])
