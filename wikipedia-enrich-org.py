@@ -24,7 +24,7 @@
 #     * `website`: the website for the organization
 #     * `official_name`: the official name for the organization
 #     * `short_name`: a short name for the organization
-#     * `moto`: the organization's motto
+#     * `motto`: the organization's motto
 #     * `inception`: the date the organization was founded
 #     * `country`: the country the organization is based in
 #     * `twitter_id`: the organization's twitter id
@@ -174,7 +174,7 @@ def get_claim_info(object, item_id, language):
         {'name': 'website', 'prop': 'P856'},
         {'name': 'official_name', 'prop': 'P1448'},
         {'name': 'short_name', 'prop': 'P1813'},
-        {'name': 'moto', 'prop': 'P1451'},
+        {'name': 'motto', 'prop': 'P1451'},
         {'name': 'inception', 'prop': 'P571'},
         {'name': 'country', 'prop': 'P17'},
         #{'name': 'stock_ticker', 'prop': 'P414'},
