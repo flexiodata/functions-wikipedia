@@ -1,7 +1,7 @@
 title: Wikipedia Integration
 description: Functions for accessing information from Wikipedia
 image:
-  src: https://logo.clearbit.com/en.wikipedia.org
+  src: https://logo.clearbit.com/wikipedia.org
   alt: Wikipedia logo
 functions:
   - path: wikipedia-enrich-description.py
