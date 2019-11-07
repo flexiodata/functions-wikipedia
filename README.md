@@ -23,9 +23,11 @@ The Wikipedia Spreadsheet Functions are powered by [Flex.io](https://www.flex.io
 * A [Flex.io account](https://www.flex.io/app/signup) to run the functions
 * A [Flex.io Add-on](https://www.flex.io/add-ons) for Microsoft Excel or Google Sheets use the functions in your spreadsheet
 
-## Installing the Wikipedia Spreadsheet Functions
+## Installing the Functions
 
 Once you've signed up for Flex.io and have the Flex.io Add-on installed, you're ready to install the function pack.
+
+You can install these functions directly by mounting this repository in Flex.io:
 
 1. [Sign in](https://www.flex.io/app/signin) to Flex.io
 2. In the Functions area, click the "New" button in the upper-left and select "Function Mount" from the list
@@ -33,7 +35,9 @@ Once you've signed up for Flex.io and have the Flex.io Add-on installed, you're 
 4. In the respository URL box, enter the name of this repository, which is "flexiodata/functions-wikipedia"
 5. Click "Create Function Mount"
 
-## Using the Wikipedia Spreadsheet Functions
+If you prefer, you can also install these using the [Flex.io Wikipedia Integration](https://www.flex.io/integrations/wikipedia).
+
+## Using the Functions
 
 Once you've installed the function pack, you're ready to use the functions.
 
