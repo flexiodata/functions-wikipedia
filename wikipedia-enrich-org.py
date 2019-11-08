@@ -71,6 +71,23 @@ def flexio_handler(flex):
     if input is None:
         raise ValueError
 
+    # default property list
+    default_properties = OrderedDict()
+    default_properties['label'] = ''
+    default_properties['description'] = ''
+    default_properties['wikipedia_url'] = ''
+    default_properties['website'] = ''
+    default_properties['official_name'] = ''
+    default_properties['short_name'] = ''
+    default_properties['motto'] = ''
+    default_properties['inception'] = ''
+    default_properties['country'] = ''
+    default_properties['twitter_id'] = ''
+    default_properties['instagram_id'] = ''
+    default_properties['reddit_id'] = ''
+    default_properties['bloomberg_id'] = ''
+    default_properties['updated_dt'] = ''
+
     try:
 
         # see here for general information about the wikidata api: https://www.wikidata.org/wiki/Wikidata:Data_access
@@ -132,9 +149,15 @@ def flexio_handler(flex):
         for i in item_claim_info:
             item_info_lookup[i['name']] = i.get('value','')
 
-        # build up the result
+        # get the properties to return
         properties = [p.lower().strip() for p in input['properties']]
-        result = [[item_info_lookup.get(p,'') for p in properties]]
+
+        # if we have a wildcard, get all the properties
+        if len(properties) == 1 and properties[0] == '*':
+            properties = list(default_properties.keys())
+
+        # build up the result
+        result = [[item_info_lookup.get(p,'') or '' for p in properties]]
 
         # return the results
         result = json.dumps(result, default=to_string)
