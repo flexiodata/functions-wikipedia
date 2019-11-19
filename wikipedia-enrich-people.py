@@ -19,7 +19,7 @@
 # notes: |
 #   The following properties are allowed:
 #     * `label`: a label for the person
-#     * `description`: a description of the person
+#     * `description`: a description of the person (default)
 #     * `wikipedia_url`: wikipedia url for the person
 #     * `gender`: the person's gender
 #     * `birth_name`: the person's birth name

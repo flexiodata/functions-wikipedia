@@ -19,7 +19,7 @@
 # notes: |
 #   The following properties are allowed:
 #     * `label`: a label for the organization
-#     * `description`: a description of the organization
+#     * `description`: a description of the organization (default)
 #     * `wikipedia_url`: wikipedia url for the organization
 #     * `website`: the website for the organization
 #     * `official_name`: the official name for the organization
