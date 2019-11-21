@@ -1,8 +1,12 @@
-# Wikipedia Spreadsheet Functions
+# Wikipedia Google Sheets & Excel Spreadsheet Add on
 
-Wikipedia Spreadsheet Functions enable you to lookup information from [Wikipedia](https://www.wikipedia.org/) and [Wikidata](https://www.wikidata.org/) in a spreadsheet, including descriptions for subjects or information about people and organizations.
+Wikipedia is an open-source online encyclopedia which provides a database of articles on an extensive range of topics. This Wikipedia spreadsheet integration for Google Sheets and Microsoft Excel enables you to import data from Wikipedia, to enrich lists of people and organizations. This add-on will enable you to integrate on-demand, refreshable encyclopedia data without leaving your spreadsheet.
 
-For example, you can create a list of topics in your spreadsheet and get a description from the first line of the most likely Wikipedia article for each topic. You can also create a list of people in your spreadsheet and enrich this list with information about them, such as a description about them and their birthdate.
+For example, with this Excel and Google Sheets add-on you can:
+
+* Enrich a list of topics in your spreadsheet using the description from the first line of the most likely Wikipedia article related to the topic.
+* Import data to enrich a list of people in your spreadsheet with information about them, such as a description, gender, birth name, birth and death date, citizenship, residence and occupation.
+* Extract data to enrich a list of organizations in your spreadsheet with information about them, such as a description, website, motto, inception, country and social media handles, like Twitter, Instagram, Reddit and Bloomberg.
 
 Here are some examples:
 
