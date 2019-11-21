@@ -1,4 +1,4 @@
-# Wikipedia Google Sheets & Excel Spreadsheet Add on
+# Wikipedia Google Sheets & Excel Spreadsheet Add-on
 
 Wikipedia is an open-source online encyclopedia which provides a database of articles on an extensive range of topics. This Wikipedia spreadsheet integration for Google Sheets and Microsoft Excel enables you to import data from Wikipedia, to enrich lists of people and organizations. This add-on will enable you to integrate on-demand, refreshable encyclopedia data without leaving your spreadsheet.
 
