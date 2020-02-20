@@ -11,27 +11,54 @@
 #     required: true
 #   - name: properties
 #     type: array
-#     description: The properties to return (defaults to 'description'). See "Notes" for a listing of the available properties.
+#     description: The properties to return (defaults to 'description'). See "Returns" for a listing of the available properties.
 #     required: false
+# returns:
+#   - name: label
+#     type: string
+#     description: A label for the organization
+#   - name: description
+#     type: string
+#     description: A description of the organization (default)
+#   - name: wikipedia_url
+#     type: string
+#     description: The wikipedia url for the organization
+#   - name: website
+#     type: string
+#     description: The website for the organization
+#   - name: official_name
+#     type: string
+#     description: The official name for the organization
+#   - name: short_name
+#     type: string
+#     description: A short name for the organization
+#   - name: motto
+#     type: string
+#     description: The organization's motto
+#   - name: inception
+#     type: string
+#     description: The date the organization was founded
+#   - name: country
+#     type: string
+#     description: The country the organization is based in
+#   - name: twitter_id
+#     type: string
+#     description: The organization's twitter id
+#   - name: instagram_id
+#     type: string
+#     description: The organization's instagram id
+#   - name: reddit_id
+#     type: string
+#     description: The organization's reddit id
+#   - name: bloomberg_id
+#     type: string
+#     description: The organization's bloomberg id
+#   - name: updated_dt
+#     type: string
+#     description: The date the information was last updated
 # examples:
 #   - '"Google"'
 #   - '"Apple"'
-# notes: |
-#   The following properties are allowed:
-#     * `label`: a label for the organization
-#     * `description`: a description of the organization (default)
-#     * `wikipedia_url`: wikipedia url for the organization
-#     * `website`: the website for the organization
-#     * `official_name`: the official name for the organization
-#     * `short_name`: a short name for the organization
-#     * `motto`: the organization's motto
-#     * `inception`: the date the organization was founded
-#     * `country`: the country the organization is based in
-#     * `twitter_id`: the organization's twitter id
-#     * `instagram_id`: the organization's instagram id
-#     * `reddit_id`: the organization's reddit id
-#     * `bloomberg_id`: the organization's bloomberg id
-#     * `updated_dt`: date the information was last updated
 # ---
 
 import json

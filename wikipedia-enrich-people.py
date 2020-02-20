@@ -11,40 +11,93 @@
 #     required: true
 #   - name: properties
 #     type: array
-#     description: The properties to return (defaults to 'description'). See "Notes" for a listing of the available properties.
+#     description: The properties to return (defaults to 'description'). See "Returns" for a listing of the available properties.
 #     required: false
+# returns:
+#   - name: label
+#     type: string
+#     description: A label for the person
+#   - name: description
+#     type: string
+#     description: A description of the person (default)
+#   - name: wikipedia_url
+#     type: string
+#     description: The wikipedia url for the person
+#   - name: gender
+#     type: string
+#     description: The person's gender
+#   - name: birth_name
+#     type: string
+#     description: The person's birth name
+#   - name: given_name
+#     type: string
+#     description: The person's given (first) name
+#   - name: family_name
+#     type: string
+#     description: The person's family (last) name
+#   - name: native_name
+#     type: string
+#     description: The person's native name
+#   - name: birth_date
+#     type: string
+#     description: The person's birth date
+#   - name: death_date
+#     type: string
+#     description: The person's death date
+#   - name: birth_place
+#     type: string
+#     description: The person's birth place
+#   - name: death_place
+#     type: string
+#     description: The person's death place
+#   - name: religion
+#     type: string
+#     description: The person's religion
+#   - name: citizenship
+#     type: string
+#     description: The person's country of citizenship
+#   - name: native_language
+#     type: string
+#     description: The person's native language
+#   - name: father
+#     type: string
+#     description: The person's father
+#   - name: mother
+#     type: string
+#     description: The person's mother
+#   - name: spouse
+#     type: string
+#     description: The person's spouse
+#   - name: residence
+#     type: string
+#     description: The person's place of residence
+#   - name: occupation
+#     type: string
+#     description: The person's occupation
+#   - name: education
+#     type: string
+#     description: The person's education
+#   - name: net_worth
+#     type: string
+#     description: The person's net worth
+#   - name: twitter_id
+#     type: string
+#     description: The person's twitter id
+#   - name: instagram_id
+#     type: string
+#     description: The person's instagram id
+#   - name: reddit_id
+#     type: string
+#     description: The person's reddit id
+#   - name: bloomberg_id
+#     type: string
+#     description: The person's bloomberg id
+#   - name: updated_dt
+#     type: string
+#     description: The date the information was last updated
 # examples:
 #   - '"Teddy Roosevelt"'
 #   - '"JS Bach"'
-# notes: |
-#   The following properties are allowed:
-#     * `label`: a label for the person
-#     * `description`: a description of the person (default)
-#     * `wikipedia_url`: wikipedia url for the person
-#     * `gender`: the person's gender
-#     * `birth_name`: the person's birth name
-#     * `given_name`:  the person's given (first) name
-#     * `family_name`: the person's family (last) name
-#     * `native_name`: the person's native name
-#     * `birth_date`: the person's birth date
-#     * `death_date`: the person's death date
-#     * `birth_place`: the person's birth place
-#     * `death_place`: the person's death place
-#     * `religion`: the person's religion
-#     * `citizenship`: the person's country of citizenship
-#     * `native_language`: the person's native language
-#     * `father`: the person's father
-#     * `mother`: the person's mother
-#     * `spouse`: the person's spouse
-#     * `residence`: the person's place of residence
-#     * `occupation`:  the person's occupation
-#     * `education`: the person's education
-#     * `net_worth`: the person's net worth
-#     * `twitter_id`: the person's twitter id
-#     * `instagram_id`: the person's instagram id
-#     * `reddit_id`: the person's reddit id
-#     * `bloomberg_id`: the person's bloomberg id
-#     * `updated_dt`: date the information was last updated
 # ---
 
 import json

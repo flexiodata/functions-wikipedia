@@ -9,10 +9,13 @@
 #     type: string
 #     description: Text search of Wikipedia
 #     required: true
+# returns:
+#   - name: description
+#     type: string
+#     description: The first sentence of the Wikipedia entry for the given search term
 # examples:
 #   - '"Yellowstone National Park"'
 #   - '"JS Bach"'
-# notes:
 # ---
 
 import json
