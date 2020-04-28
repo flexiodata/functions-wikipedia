@@ -19,8 +19,10 @@
 # ---
 
 import json
-import requests
 import urllib
+import requests
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
 from cerberus import Validator
 from collections import OrderedDict
 from bs4 import BeautifulSoup
@@ -62,7 +64,7 @@ def flexio_handler(flex):
         url_query_str = urllib.parse.urlencode(url_query_params)
 
         url = 'https://en.wikipedia.org/w/api.php?' + url_query_str
-        response = requests.get(url)
+        response = requests_retry_session().get(url)
         search_info = response.json()
         search_items = search_info.get('query', {}).get('search', [])
 
@@ -79,7 +81,7 @@ def flexio_handler(flex):
         # STEP 2: get the article for the page id returned by the search
         top_search_item_page_id = str(top_search_item_page_id)
         url = 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&explaintext=&exintro=&exsentences=1&pageids=' + top_search_item_page_id
-        response = requests.get(url)
+        response = requests_retry_session().get(url)
         article_info = response.json()
         extract = article_info.get('query',{}).get('pages',{}).get(top_search_item_page_id, {}).get('extract', '')
 
@@ -89,3 +91,22 @@ def flexio_handler(flex):
 
     except:
         raise RuntimeError
+
+def requests_retry_session(
+    retries=3,
+    backoff_factor=0.3,
+    status_forcelist=(500, 502, 504),
+    session=None,
+):
+    session = session or requests.Session()
+    retry = Retry(
+        total=retries,
+        read=retries,
+        connect=retries,
+        backoff_factor=backoff_factor,
+        status_forcelist=status_forcelist,
+    )
+    adapter = HTTPAdapter(max_retries=retry)
+    session.mount('http://', adapter)
+    session.mount('https://', adapter)
+    return session
