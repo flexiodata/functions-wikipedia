@@ -11,22 +11,22 @@ templates:
     description: 'Import and filter a list of articles from Wikipedia for a topic'
     gsheets_spreadsheet_id: ''
     excel_spreadsheet_path: ''
-    in_production: false
-    in_staging: false
+    is_public: false
+    is_private: false
   - name: lookup-organization
     title: 'Search for organizations in Wikipedia'
     description: 'Lookup data for a list of organizations from Wikipedia using their names'
     gsheets_spreadsheet_id: ''
     excel_spreadsheet_path: ''
-    in_production: false
-    in_staging: false
+    is_public: false
+    is_private: false
   - name: lookup-people
     title: 'Search for people in Wikipedia'
     description: 'Lookup data for a list of people from Wikipedia using their names'
     gsheets_spreadsheet_id: ''
     excel_spreadsheet_path: ''
-    in_production: false
-    in_staging: false
+    is_public: false
+    is_private: false
 
 functions:
   - path: wikipedia-enrich-description.py
