@@ -54,43 +54,38 @@ def flexio_handler(flex):
     if input is None:
         raise ValueError
 
-    try:
+    # see here for more info: https://en.wikipedia.org/w/api.php?action=help&modules=query
+    # see here to experiment with the api: https://en.wikipedia.org/wiki/Special:ApiSandbox
 
-        # see here for more info: https://en.wikipedia.org/w/api.php?action=help&modules=query
-        # see here to experiment with the api: https://en.wikipedia.org/wiki/Special:ApiSandbox
+    # STEP 1: perform a search and get the page id for the top item in the search
+    url_query_params = {'action': 'query', 'format': 'json', 'list': 'search', 'srprop': 'timestamp', 'srsearch': input['search']}
+    url_query_str = urllib.parse.urlencode(url_query_params)
 
-        # STEP 1: perform a search and get the page id for the top item in the search
-        url_query_params = {'action': 'query', 'format': 'json', 'list': 'search', 'srprop': 'timestamp', 'srsearch': input['search']}
-        url_query_str = urllib.parse.urlencode(url_query_params)
+    url = 'https://en.wikipedia.org/w/api.php?' + url_query_str
+    response = requests_retry_session().get(url)
+    search_info = response.json()
+    search_items = search_info.get('query', {}).get('search', [])
 
-        url = 'https://en.wikipedia.org/w/api.php?' + url_query_str
-        response = requests_retry_session().get(url)
-        search_info = response.json()
-        search_items = search_info.get('query', {}).get('search', [])
+    top_search_item = {}
+    if len(search_items) > 0:
+        top_search_item = search_items[0]
 
-        top_search_item = {}
-        if len(search_items) > 0:
-            top_search_item = search_items[0]
-
-        top_search_item_page_id = top_search_item.get('pageid')
-        if top_search_item_page_id is None:
-            flex.output.content_type = "application/json"
-            flex.output.write([[""]])
-            return
-
-        # STEP 2: get the article for the page id returned by the search
-        top_search_item_page_id = str(top_search_item_page_id)
-        url = 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&explaintext=&exintro=&exsentences=1&pageids=' + top_search_item_page_id
-        response = requests_retry_session().get(url)
-        article_info = response.json()
-        extract = article_info.get('query',{}).get('pages',{}).get(top_search_item_page_id, {}).get('extract', '')
-
-        result = [[extract]]
+    top_search_item_page_id = top_search_item.get('pageid')
+    if top_search_item_page_id is None:
         flex.output.content_type = "application/json"
-        flex.output.write(result)
+        flex.output.write([[""]])
+        return
 
-    except:
-        raise RuntimeError
+    # STEP 2: get the article for the page id returned by the search
+    top_search_item_page_id = str(top_search_item_page_id)
+    url = 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&explaintext=&exintro=&exsentences=1&pageids=' + top_search_item_page_id
+    response = requests_retry_session().get(url)
+    article_info = response.json()
+    extract = article_info.get('query',{}).get('pages',{}).get(top_search_item_page_id, {}).get('extract', '')
+
+    result = [[extract]]
+    flex.output.content_type = "application/json"
+    flex.output.write(result)
 
 def requests_retry_session(
     retries=3,

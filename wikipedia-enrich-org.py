@@ -117,84 +117,79 @@ def flexio_handler(flex):
     default_properties['bloomberg_id'] = ''
     default_properties['updated_dt'] = ''
 
-    try:
+    # see here for general information about the wikidata api: https://www.wikidata.org/wiki/Wikidata:Data_access
+    # see here for list of sorted properties: https://www.wikidata.org/wiki/MediaWiki:Wikibase-SortedProperties
 
-        # see here for general information about the wikidata api: https://www.wikidata.org/wiki/Wikidata:Data_access
-        # see here for list of sorted properties: https://www.wikidata.org/wiki/MediaWiki:Wikibase-SortedProperties
+    # STEP 1: make an initial search request to find the most relevant item
+    # https://www.wikidata.org/w/api.php?action=wbsearchentities&language=en&search=:search_term
+    url_query_params = {'action': 'wbsearchentities', 'language': language, 'format': 'json', 'search': input['search']}
+    url_query_str = urllib.parse.urlencode(url_query_params)
 
-        # STEP 1: make an initial search request to find the most relevant item
-        # https://www.wikidata.org/w/api.php?action=wbsearchentities&language=en&search=:search_term
-        url_query_params = {'action': 'wbsearchentities', 'language': language, 'format': 'json', 'search': input['search']}
-        url_query_str = urllib.parse.urlencode(url_query_params)
+    url = 'https://www.wikidata.org/w/api.php?' + url_query_str
+    response = requests_retry_session().get(url)
+    search_info = response.json()
+    search_items = search_info.get('search', [])
 
-        url = 'https://www.wikidata.org/w/api.php?' + url_query_str
-        response = requests_retry_session().get(url)
-        search_info = response.json()
-        search_items = search_info.get('search', [])
-
-        if len(search_items) == 0:
-            flex.output.content_type = "application/json"
-            flex.output.write([[""]])
-            return
-
-        search_first_item_id = search_items[0].get('id','')
-
-        # STEP 2: get the info about the item
-        # https://www.wikidata.org/w/api.php?action=wbgetentities&sites=enwiki&props=claims&format=json&ids=:id
-        props = 'info|sitelinks|sitelinks/urls|labels|descriptions|claims|datatype'
-        url_query_params = {'action': 'wbgetentities', 'sites': 'enwiki', 'props': props, 'format': 'json', 'ids': search_first_item_id}
-        url_query_str = urllib.parse.urlencode(url_query_params)
-
-        url = 'https://www.wikidata.org/w/api.php?' + url_query_str
-        response = requests_retry_session().get(url)
-        content = response.json()
-
-        # TODO:
-        # confirm we have an organization
-
-        # STEP 3: get primary item info and additional info
-        item_primary_info = get_basic_info(content, search_first_item_id, language)
-        item_claim_info = get_claim_info(content, search_first_item_id, language)
-
-        # STEP 4: make an additional lookup to find out the info from the wikipedia entity values
-        # https://www.wikidata.org/w/api.php?action=wbgetentities&sites=enwiki&props=claims&format=json&ids=:id
-        props = 'labels'
-        search_ids = [i.get('datavalue',{}).get('value',{}).get('id','') for i in item_claim_info if i.get('datavalue',{}).get('type') == 'wikibase-entityid']
-        search_ids = '|'.join(search_ids)
-        url_query_params = {'action': 'wbgetentities', 'sites': 'enwiki', 'props': props, 'format': 'json', 'ids': search_ids}
-        url_query_str = urllib.parse.urlencode(url_query_params)
-
-        url = 'https://www.wikidata.org/w/api.php?' + url_query_str
-        response = requests_retry_session().get(url)
-        content = response.json()
-
-        # STEP 5: use the info from the additional lookup to populate the values in the item info
-        item_claim_info_enriched = [update_claim_info(i, content, language) for i in item_claim_info]
-
-        # STEP 6: merge the primary info and the enriched info
-        item_info_lookup = {}
-        for i in item_primary_info:
-            item_info_lookup[i['name']] = i.get('value','')
-        for i in item_claim_info:
-            item_info_lookup[i['name']] = i.get('value','')
-
-        # get the properties to return
-        properties = [p.lower().strip() for p in input['properties']]
-
-        # if we have a wildcard, get all the properties
-        if len(properties) == 1 and properties[0] == '*':
-            properties = list(default_properties.keys())
-
-        # build up the result
-        result = [[item_info_lookup.get(p,'') or '' for p in properties]]
-
-        # return the results
-        result = json.dumps(result, default=to_string)
+    if len(search_items) == 0:
         flex.output.content_type = "application/json"
-        flex.output.write(result)
+        flex.output.write([[""]])
+        return
 
-    except:
-        raise RuntimeError
+    search_first_item_id = search_items[0].get('id','')
+
+    # STEP 2: get the info about the item
+    # https://www.wikidata.org/w/api.php?action=wbgetentities&sites=enwiki&props=claims&format=json&ids=:id
+    props = 'info|sitelinks|sitelinks/urls|labels|descriptions|claims|datatype'
+    url_query_params = {'action': 'wbgetentities', 'sites': 'enwiki', 'props': props, 'format': 'json', 'ids': search_first_item_id}
+    url_query_str = urllib.parse.urlencode(url_query_params)
+
+    url = 'https://www.wikidata.org/w/api.php?' + url_query_str
+    response = requests_retry_session().get(url)
+    content = response.json()
+
+    # TODO:
+    # confirm we have an organization
+
+    # STEP 3: get primary item info and additional info
+    item_primary_info = get_basic_info(content, search_first_item_id, language)
+    item_claim_info = get_claim_info(content, search_first_item_id, language)
+
+    # STEP 4: make an additional lookup to find out the info from the wikipedia entity values
+    # https://www.wikidata.org/w/api.php?action=wbgetentities&sites=enwiki&props=claims&format=json&ids=:id
+    props = 'labels'
+    search_ids = [i.get('datavalue',{}).get('value',{}).get('id','') for i in item_claim_info if i.get('datavalue',{}).get('type') == 'wikibase-entityid']
+    search_ids = '|'.join(search_ids)
+    url_query_params = {'action': 'wbgetentities', 'sites': 'enwiki', 'props': props, 'format': 'json', 'ids': search_ids}
+    url_query_str = urllib.parse.urlencode(url_query_params)
+
+    url = 'https://www.wikidata.org/w/api.php?' + url_query_str
+    response = requests_retry_session().get(url)
+    content = response.json()
+
+    # STEP 5: use the info from the additional lookup to populate the values in the item info
+    item_claim_info_enriched = [update_claim_info(i, content, language) for i in item_claim_info]
+
+    # STEP 6: merge the primary info and the enriched info
+    item_info_lookup = {}
+    for i in item_primary_info:
+        item_info_lookup[i['name']] = i.get('value','')
+    for i in item_claim_info:
+        item_info_lookup[i['name']] = i.get('value','')
+
+    # get the properties to return
+    properties = [p.lower().strip() for p in input['properties']]
+
+    # if we have a wildcard, get all the properties
+    if len(properties) == 1 and properties[0] == '*':
+        properties = list(default_properties.keys())
+
+    # build up the result
+    result = [[item_info_lookup.get(p,'') or '' for p in properties]]
+
+    # return the results
+    result = json.dumps(result, default=to_string)
+    flex.output.content_type = "application/json"
+    flex.output.write(result)
 
 def update_claim_info(claim_info, object, language):
     value_type = claim_info.get('datavalue',{}).get('type')
